@@ -1,0 +1,5 @@
+node_modules/
+ledgerline.db
+ledgerline.db-shm
+ledgerline.db-wal
+.env

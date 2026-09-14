@@ -1,0 +1,24 @@
+{
+  "name": "ledgerline",
+  "version": "1.0.0",
+  "description": "Personal finance dashboard aggregating income, expenses, and savings goals with Chart.js visualizations and a SQLite-backed REST API.",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "finance",
+    "dashboard",
+    "express",
+    "sqlite",
+    "chartjs"
+  ],
+  "author": "Yomna",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
