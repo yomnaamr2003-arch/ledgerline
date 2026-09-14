@@ -1,0 +1,405 @@
+:root {
+  --paper: #f2ecdc;
+  --paper-line: #d9cba3;
+  --paper-shadow: rgba(36, 38, 31, 0.14);
+  --ink: #262a22;
+  --ink-soft: #5b5c4d;
+  --cover: #16332c;
+  --cover-soft: #1f4339;
+  --brass: #a9803e;
+  --brass-light: #cfa860;
+  --wax: #a13d2b;
+  --wax-soft: #c96852;
+  --moss: #3e7856;
+  --moss-soft: #5c9976;
+
+  --font-display: "Fraunces", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: #0f211c;
+  font-family: var(--font-mono);
+  color: var(--ink);
+}
+
+button, input, select {
+  font-family: inherit;
+}
+
+.book {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+/* ---------- Spine ---------- */
+
+.spine {
+  background: linear-gradient(180deg, var(--cover) 0%, var(--cover-soft) 100%);
+  color: #ece4cf;
+  padding: 36px 24px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  border-right: 6px solid var(--brass);
+}
+
+.spine-mark {
+  margin-bottom: 48px;
+}
+
+.spine-mark-line {
+  display: block;
+  width: 34px;
+  height: 3px;
+  background: var(--brass-light);
+  margin-bottom: 14px;
+}
+
+.spine-mark-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.01em;
+}
+
+.spine-tabs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.tab {
+  all: unset;
+  cursor: pointer;
+  display: block;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: #c9c3ab;
+  border-left: 3px solid transparent;
+  border-radius: 2px;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.tab:hover {
+  color: #ece4cf;
+  background: rgba(236, 228, 207, 0.06);
+}
+
+.tab.active {
+  color: #f6f1e2;
+  border-left-color: var(--brass-light);
+  background: rgba(236, 228, 207, 0.08);
+  font-weight: 600;
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--brass-light);
+  outline-offset: 2px;
+}
+
+.spine-foot {
+  font-size: 0.7rem;
+  color: #8d8a76;
+  margin: 0;
+}
+
+/* ---------- Page ---------- */
+
+.page {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 37px,
+      var(--paper-line) 38px
+    ),
+    var(--paper);
+  padding: 48px 56px 80px;
+  min-height: 100vh;
+}
+
+.view { display: none; }
+.view.active { display: block; animation: settle 0.3s ease; }
+
+@keyframes settle {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-head {
+  margin-bottom: 32px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 16px;
+}
+
+.page-head h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2.1rem;
+  margin: 0 0 6px;
+  color: var(--cover);
+}
+
+.page-sub {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+/* ---------- Tallies ---------- */
+
+.tally-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 44px;
+}
+
+.tally {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 22px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--paper-line);
+  border-left: 4px solid var(--brass);
+}
+
+.tally-label {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+
+.tally-figure {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.tally-figure.income { color: var(--moss); }
+.tally-figure.expense { color: var(--wax); }
+.tally-figure.balance { color: var(--cover); }
+
+/* ---------- Charts ---------- */
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 28px;
+}
+
+.chart-card {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--paper-line);
+  padding: 22px 24px 26px;
+}
+
+.chart-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 16px;
+  color: var(--cover);
+}
+
+.chart-wrap {
+  position: relative;
+  height: 260px;
+}
+
+/* ---------- Forms ---------- */
+
+.entry-form, .goal-form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px 18px;
+  align-items: end;
+  margin-bottom: 32px;
+  padding: 22px 24px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--paper-line);
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-wide { grid-column: span 2; }
+
+.field label {
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+  text-transform: none;
+}
+
+.field input, .field select {
+  border: none;
+  border-bottom: 2px solid var(--paper-line);
+  background: transparent;
+  padding: 8px 2px;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.field input:focus, .field select:focus {
+  outline: none;
+  border-bottom-color: var(--brass);
+}
+
+.btn-record {
+  all: unset;
+  cursor: pointer;
+  background: var(--cover);
+  color: #f2ecdc;
+  padding: 11px 20px;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  text-align: center;
+  border: 1px solid var(--cover);
+  transition: background 0.15s ease;
+}
+
+.btn-record:hover { background: var(--cover-soft); }
+.btn-record:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+/* ---------- Ledger table ---------- */
+
+.ledger-table {
+  border-top: 2px solid var(--ink);
+}
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 110px 150px 1fr 130px 40px;
+  gap: 12px;
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--paper-line);
+  font-size: 0.86rem;
+  align-items: center;
+}
+
+.ledger-head {
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+  border-bottom: 2px solid var(--ink);
+}
+
+.ledger-row .num { text-align: right; font-weight: 600; }
+.ledger-row.income .num { color: var(--moss); }
+.ledger-row.expense .num { color: var(--wax); }
+
+.col-action { text-align: right; }
+
+.row-delete {
+  all: unset;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  padding: 2px 6px;
+}
+.row-delete:hover { color: var(--wax); }
+
+.ledger-empty {
+  padding: 24px 4px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  font-style: normal;
+}
+
+/* ---------- Goals ---------- */
+
+.goal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.goal-card {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--paper-line);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.goal-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--cover);
+}
+
+.goal-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.goal-bar-track {
+  height: 10px;
+  background: var(--paper-line);
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--brass), var(--brass-light));
+}
+
+.goal-pct {
+  align-self: flex-end;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--brass);
+}
+
+.goal-deadline {
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 960px) {
+  .book { grid-template-columns: 1fr; }
+  .spine {
+    position: static;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 24px;
+  }
+  .spine-mark { margin-bottom: 0; }
+  .spine-tabs { flex-direction: row; }
+  .spine-foot { display: none; }
+  .page { padding: 32px 20px 60px; }
+  .tally-row, .chart-row { grid-template-columns: 1fr; }
+  .entry-form, .goal-form { grid-template-columns: 1fr 1fr; }
+  .field-wide { grid-column: span 2; }
+  .ledger-row { grid-template-columns: 90px 1fr 90px 30px; }
+  .ledger-row span:nth-child(3) { display: none; }
+  .ledger-head span:nth-child(3) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view.active { animation: none; }
+}
